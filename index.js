@@ -28,6 +28,14 @@ async function run(){
             res.send(result);
         })
 
+        // find A User
+        app.get('/users', async(req,res)=>{
+            const email = req.query.email;
+            const query = {email: email};
+            const result = await userCollection.findOne(query);
+            res.send(result);
+        })
+
     }
     catch{
 
