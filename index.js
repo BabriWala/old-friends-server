@@ -37,6 +37,20 @@ async function run(){
             res.send(result);
         })
 
+        // find all sellers
+        app.get('/sellers', async(req,res)=>{
+            const query = {role : 'seller'};
+            const result = await usersCollection.find(query).toArray();
+            res.send(result);
+        })
+
+        // find all buyers
+        app.get('/buyers', async(req,res)=>{
+            const query = {role : 'buyer'};
+            const result = await usersCollection.find(query).toArray();
+            res.send(result);
+        })
+
         // Add a Product.
         app.post('/products', async(req,res)=>{
             const body = req.body;
