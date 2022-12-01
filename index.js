@@ -103,8 +103,17 @@ async function run(){
         // Get Products By email
         app.get('/products', async(req,res)=>{
             const email = req.query.email;
-            const query = {email:email};
+            const query = {sellerEmail:email};
             const result = await productsCollection.find(query).toArray();
+            res.send(result);
+        })
+
+        // Products Delte
+        app.delete('/products/:id', async(req,res)=>{
+            const id = req.params.id;
+            // console.log(id)
+            const query = {_id: ObjectId(id)};
+            const result = await productsCollection.deleteOne(query);
             res.send(result);
         })
 
