@@ -2,6 +2,7 @@ const express = require('express');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const cors = require('cors');
+const { any } = require('webidl-conversions');
 const port = process.env.PORT | 5000;
 
 app.get('/', (req,res)=>{
@@ -87,6 +88,23 @@ async function run(){
             const doc = body;
             const result = await productsCollection.insertOne(doc);
             // console.log(result)
+            res.send(result);
+        })
+
+        // Get Products
+        app.get('/products/:name', async(req,res)=>{
+            const category = req.params.name;
+            const query = {category: category};
+            const result = await productsCollection.find(query).toArray();
+            res.send(result);
+        })
+
+
+        // Get Products By email
+        app.get('/products', async(req,res)=>{
+            const email = req.query.email;
+            const query = {email:email};
+            const result = await productsCollection.find(query).toArray();
             res.send(result);
         })
 
