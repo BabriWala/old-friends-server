@@ -52,6 +52,14 @@ async function run(){
             res.send(result);
         })
 
+        // Delete Buyer
+        app.delete('/buyers/:id', async(req,res)=>{
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const result = await usersCollection.deleteOne(query);
+            res.send(result);
+        })
+
         // Update Seller Role
         app.put('/sellers/:id', async(req,res)=>{
             const id = req.params.id;
