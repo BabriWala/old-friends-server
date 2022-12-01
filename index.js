@@ -131,6 +131,13 @@ async function run(){
             res.send(result);
         })
 
+
+         // Get Advertised Products
+         app.get('/advertisedProducts', async(req,res)=>{
+            const query = {saleStatus:"advertising"};
+            const result = await productsCollection.find(query).toArray();
+            res.send(result);
+        })
     }
     catch{
 
