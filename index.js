@@ -117,6 +117,20 @@ async function run(){
             res.send(result);
         })
 
+        // Update Product Sale Status for Advertising
+        app.put('/products/:id', async(req,res)=>{
+            const id = req.params.id;
+            const filter = {_id: ObjectId(id)};
+            const options = {upsert: true};
+            const updateDoc = {
+                $set: {
+                    saleStatus: "advertising"
+                }
+            }
+            const result = await productsCollection.updateOne(filter, updateDoc, options);
+            res.send(result);
+        })
+
     }
     catch{
 
