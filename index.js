@@ -21,6 +21,7 @@ async function run(){
         // Database
         const usersCollection = client.db('oldFriends').collection('users');
         const productsCollection = client.db('oldFriends').collection('products');
+        const bookedCollection = client.db('oldFriends').collection('bookedProducts');
 
         // User Insert
         app.post('/users', async(req,res)=>{
@@ -136,6 +137,15 @@ async function run(){
          app.get('/advertisedProducts', async(req,res)=>{
             const query = {saleStatus:"advertising"};
             const result = await productsCollection.find(query).toArray();
+            res.send(result);
+        })
+
+
+        // Insert Booked Product
+        app.post('/bookedProducts', async(req,res)=>{
+            const body = req.body;
+            const doc = body;
+            const result = await bookedCollection.insertOne(doc);
             res.send(result);
         })
     }
