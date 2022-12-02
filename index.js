@@ -2,19 +2,22 @@ const express = require('express');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const cors = require('cors');
-const { any } = require('webidl-conversions');
+require('dotenv').config()
+
 const port = process.env.PORT | 5000;
 
-app.get('/', (req,res)=>{
-    res.send('Welcome To Old Friends Server')
-})
 
 app.use(express.json());
 app.use(cors())
 
 
-const uri = "mongodb+srv://oldFriends:9iBA3rHgC0ISOhMF@cluster0.o5lz3b5.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.o5lz3b5.mongodb.net/?retryWrites=true&w=majority`;
+console.log(uri)
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+app.get('/', (req,res)=>{
+    res.send('Welcome To Old Friends Server')
+})
 
 async function run(){
     try{
